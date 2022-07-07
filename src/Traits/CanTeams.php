@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Traits;
+namespace IAleroy\Teams\Traits;
 
-use App\Models\Team;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission;
@@ -12,7 +11,11 @@ trait CanTeams
 {
     public function teams(): MorphToMany
     {
-        return $this->morphedByMany(Team::class, 'model', 'model_has_roles')
+        return $this->morphedByMany(
+            config('team.models.team'),
+            'model',
+            config('permission.table_names.model_has_roles')
+        )
             ->withPivot('role_id')
             ->as('membership');
     }

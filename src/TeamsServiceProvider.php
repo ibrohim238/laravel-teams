@@ -1,5 +1,7 @@
 <?php
 
+namespace IAleroy\Teams;
+
 use Illuminate\Support\ServiceProvider;
 
 class TeamsServiceProvider extends ServiceProvider

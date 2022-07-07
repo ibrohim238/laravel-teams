@@ -10,6 +10,6 @@ return [
         'description' => 'description'
     ],
     'models' => [
-        'team' => \App\Models\Team::class
+        'team' => \IAleroy\Models\Team::class,
     ]
 ];

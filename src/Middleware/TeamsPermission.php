@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Versions\V1\Http\Middleware;
+namespace IAleroy\Teams\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
