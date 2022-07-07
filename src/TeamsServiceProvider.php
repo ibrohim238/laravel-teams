@@ -1,6 +1,8 @@
 <?php
 
-class TeamsServiceProvider
+use Illuminate\Support\ServiceProvider;
+
+class TeamsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any package services.
@@ -10,6 +12,9 @@ class TeamsServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->publishes([
+            __DIR__ . '/../config/team.php' => config_path('team.php')
+        ], 'config');
         $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations')
         ], 'migrations');
@@ -23,7 +28,7 @@ class TeamsServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/teams.php', 'tags'
+            __DIR__ . '/../config/team.php', 'team.php'
         );
     }
 }
