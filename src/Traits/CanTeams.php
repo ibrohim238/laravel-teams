@@ -32,7 +32,7 @@ trait CanTeams
         }
 
         if (is_string($roles)) {
-            $roles = Role::findByName($roles)->id;
+            $roles = Role::findByName($roles, config('auth.defaults.guard'))->id;
         }
 
         if (is_int($roles)) {
@@ -65,11 +65,11 @@ trait CanTeams
     public function hasTeamPermission(int $teamId, int|string $permission): bool
     {
         if (is_string($permission)) {
-            $permission = Permission::findByName($permission);
+            $permission = Permission::findByName($permission, config('auth.defaults.guard'));
         }
 
         if (is_int($permission)) {
-            $permission = Permission::findById($permission);
+            $permission = Permission::findById($permission, config('auth.defaults.guard'));
         }
 
         /* @var Permission $permission */
