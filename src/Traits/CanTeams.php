@@ -11,7 +11,7 @@ trait CanTeams
 {
     public function teams(): MorphToMany
     {
-        return $this->morphedByMany(
+        return $this->morphToMany(
             config('team.models.team'),
             'model',
             config('permission.table_names.model_has_roles')
