@@ -1,0 +1,31 @@
+{
+    "name": "su1im51n/laravel-teams",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "8.1.*",
+        "spatie/laravel-medialibrary": "^10.4",
+        "spatie/laravel-permission": "^5.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "IAleroy\\Teams\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ialeroy",
+            "email": "ibrohim238@mail.ru"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IAleroy\\Teams\\TeamsServiceProvider"
+            ]
+        }
+    }
+}
