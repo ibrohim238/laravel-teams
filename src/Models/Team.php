@@ -28,8 +28,8 @@ class Team extends Model implements HasMedia
 
         // here assign this team to a global user with global default role
         self::created(function ($model) {
-            setPermissionsTeamId($model->id);
-            Auth::user()->assignRole('owner');
+            setPermissionsTeamId($model);
+            Auth::user()->assignRole(config('team.roles.0'));
         });
     }
 

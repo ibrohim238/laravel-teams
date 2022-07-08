@@ -11,5 +11,9 @@ return [
     ],
     'models' => [
         'team' => \IAleroy\Teams\Models\Team::class,
+    ],
+
+    'roles' => [
+        0 => 'owner',
     ]
 ];
