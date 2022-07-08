@@ -3,9 +3,6 @@
 namespace IAleroy\Teams\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Support\Collection;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 trait CanTeams
@@ -21,5 +18,19 @@ trait CanTeams
         )
             ->withPivot('role_id')
             ->as('membership');
+    }
+
+    public function hasTeamRole(int $teamId, $roles): bool
+    {
+        setPermissionsTeamId($teamId);
+
+        return $this->hasRole($roles);
+    }
+
+    public function hasTeamPermissionTo(int $teamId, $permission): bool
+    {
+        setPermissionsTeamId($teamId);
+
+        return $this->hasPermissionTo($permission);
     }
 }
