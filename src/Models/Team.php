@@ -16,6 +16,7 @@ class Team extends Model implements HasMedia
 
     protected $fillable = [
         'name',
+        'description',
     ];
 
     public static function boot()

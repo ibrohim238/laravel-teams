@@ -13,6 +13,7 @@ class TeamsPermission
     {
         $user = Auth::guard($guard)->user();
 
+        setPermissionsTeamId($team);
         if ($user->hasPermission($team, $permissions)) {
             return $next($request);
         }
