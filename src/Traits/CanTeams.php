@@ -19,18 +19,4 @@ trait CanTeams
             ->withPivot('role_id')
             ->as('membership');
     }
-
-    public function hasTeamRole(int $teamId, $roles): bool
-    {
-        setPermissionsTeamId($teamId);
-
-        return $this->hasRole($roles);
-    }
-
-    public function hasTeamPermissionTo(int $teamId, $permission): bool
-    {
-        setPermissionsTeamId($teamId);
-
-        return $this->hasPermissionTo($permission);
-    }
 }
