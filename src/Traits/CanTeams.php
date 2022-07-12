@@ -48,7 +48,7 @@ trait CanTeams
         return $this->teamRole($team) === $role;
     }
 
-    public function hasTPermissions(int|Team $team, string $permission): bool
+    public function hasTPermission(int|Team $team, string $permission): bool
     {
         if (is_int($team)) {
             $team = Team::find($team);
