@@ -24,8 +24,12 @@ trait CanTeams
         return $this;
     }
 
-    public function teamRole(Team $team): ?string
+    public function teamRole(int|Team $team): ?string
     {
+        if (is_int($team)) {
+            $team = Team::find($team);
+        }
+
         return $team->users()
             ->where('team_id', $team->getId())
             ?->membership
