@@ -24,6 +24,23 @@ trait CanTeams
         return $this;
     }
 
+    public function updateTRole(Team $team, string $role): static
+    {
+        $this->teams()->updateExistingPivot(
+            $team->getId(),
+            ['role' => $role]
+        );
+
+        return $this;
+    }
+
+    public function removeTRole(Team $team): static
+    {
+        $this->teams()->detach($team->getId());
+
+        return $this;
+    }
+
     public function tRole(Team $team): ?string
     {
         return $team->users()
@@ -36,7 +53,7 @@ trait CanTeams
     {
         $teamRoles = config('team.roles');
 
-        return $teamRoles::tryFrom($this->teamRole($team))?->permissions() ?? [];
+        return $teamRoles::tryFrom($this->tRole($team))?->permissions() ?? [];
     }
 
     public function hasTRole(int|Team $team, string $role): bool
@@ -45,7 +62,7 @@ trait CanTeams
             $team = Team::find($team);
         }
 
-        return $this->teamRole($team) === $role;
+        return $this->tRole($team) === $role;
     }
 
     public function hasTPermission(int|Team $team, string $permission): bool
@@ -54,6 +71,6 @@ trait CanTeams
             $team = Team::find($team);
         }
 
-        return in_array($permission, $this->teamPermissions($team));
+        return in_array($permission, $this->tPermissions($team));
     }
 }
