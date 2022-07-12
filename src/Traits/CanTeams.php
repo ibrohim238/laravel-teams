@@ -24,7 +24,7 @@ trait CanTeams
         return $this;
     }
 
-    public function teamRole(Team $team): ?string
+    public function tRole(Team $team): ?string
     {
         return $team->users()
             ->where('team_id', $team->getId())
@@ -32,14 +32,14 @@ trait CanTeams
             ->role;
     }
 
-    public function teamPermissions(Team $team): array
+    public function tPermissions(Team $team): array
     {
         $teamRoles = config('team.roles');
 
         return $teamRoles::tryFrom($this->teamRole($team))?->permissions() ?? [];
     }
 
-    public function hasTeamRole(int|Team $team, string $role): bool
+    public function hasTRole(int|Team $team, string $role): bool
     {
         if (is_int($team)) {
             $team = Team::find($team);
@@ -48,7 +48,7 @@ trait CanTeams
         return $this->teamRole($team) === $role;
     }
 
-    public function hasTeamPermissions(int|Team $team, string $permission): bool
+    public function hasTPermissions(int|Team $team, string $permission): bool
     {
         if (is_int($team)) {
             $team = Team::find($team);
