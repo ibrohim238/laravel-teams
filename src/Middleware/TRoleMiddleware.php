@@ -8,23 +8,22 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\PermissionRegistrar;
 
-class RoleMiddleware
+class TRoleMiddleware
 {
     public function handle(Request $request, Closure $next, $role, $team = null, $guard = null)
     {
         $authGuard = Auth::guard($guard);
 
         if ($authGuard->guest()) {
-            throw UnauthorizedException::notLoggedIn();
+            return abort(401);
         }
 
         $roles = is_array($role)
             ? $role
             : explode('|', $role);
 
-        setPermissionsTeamId($team);
-        if (! $authGuard->user()->hasAnyRole($roles)) {
-            throw UnauthorizedException::forRoles($roles);
+        if (! $authGuard->user()->hasTRole($team, $roles)) {
+            return abort(403);
         }
 
         return $next($request);

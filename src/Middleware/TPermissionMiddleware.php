@@ -8,27 +8,26 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\PermissionRegistrar;
 
-class PermissionMiddleware
+class TPermissionMiddleware
 {
     public function handle(Request $request, Closure $next, $permission, $team = null, $guard = null)
     {
         $authGuard = app('auth')->guard($guard);
 
         if ($authGuard->guest()) {
-            throw UnauthorizedException::notLoggedIn();
+            return abort(401);
         }
 
         $permissions = is_array($permission)
             ? $permission
             : explode('|', $permission);
 
-        setPermissionsTeamId($team);
         foreach ($permissions as $permission) {
-            if ($authGuard->user()->can($permission)) {
+            if ($authGuard->user()->hasTPermission($team, $permission)) {
                 return $next($request);
             }
         }
 
-        throw UnauthorizedException::forPermissions($permissions);
+        return abort(403);
     }
 }
