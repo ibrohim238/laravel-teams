@@ -18,9 +18,6 @@ class TeamsServiceProvider extends ServiceProvider
             __DIR__ . '/../config/team.php' => config_path('team.php')
         ], 'config');
         $this->publishes([
-            __DIR__ . '/../config/permission.php' => config_path('permission.php')
-        ], 'config');
-        $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations')
         ], 'migrations');
     }

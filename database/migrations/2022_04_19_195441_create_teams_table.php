@@ -13,18 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('teams', function (Blueprint $table) {
+        $tableNames = config('team.table_names');
+        $columnNames = config('team.column_names');
+
+        Schema::create($tableNames['teams'], function (Blueprint $table)  use ($columnNames){
             $table->id();
-            $table->string(
-                config('team.column_names.name')
-            );
-            $table->string(
-                config('team.column_names.slug')
-            )->unique();
-            $table->string(
-                config('team.column_names.description')
-            )->nullable();
+            $table->string('name');
+            $table->string('slug')->nullable()->unique();
+            $table->string('description')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('team_user', function (Blueprint $table) use ($columnNames) {
+            $table->id();
+            $table->foreignId($columnNames['user_foreign_key'])->constrained();
+            $table->foreignId($columnNames['team_foreign_key'])->constrained();
+            $table->string($columnNames['role']);
+            $table->timestamps();
+
+            $table->unique([$columnNames['team_foreign_key'], $columnNames['user_foreign_key']]);
         });
     }
 
@@ -35,6 +42,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('team_user');
         Schema::dropIfExists('teams');
     }
 };
