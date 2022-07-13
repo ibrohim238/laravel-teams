@@ -25,9 +25,9 @@ class Team extends Model implements TeamContract, HasMedia
     {
         return $this->belongsToMany(
             config('auth.providers.users.model'),
-            config('team.models.team_user')
+            config('teams.models.team_user')
         )
-            ->withPivot(config('team.column_names.role'))
+            ->withPivot(config('teams.column_names.role'))
             ->as('membership');
     }
 

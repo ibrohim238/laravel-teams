@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        $tableNames = config('team.table_names');
-        $columnNames = config('team.column_names');
+        $tableNames = config('teams.table_names');
+        $columnNames = config('teams.column_names');
 
         Schema::create($tableNames['teams'], function (Blueprint $table)  use ($columnNames){
             $table->id();
