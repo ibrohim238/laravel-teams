@@ -15,7 +15,7 @@ class TeamsServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->publishes([
-            __DIR__ . '/../config/team.php' => config_path('team.php')
+            __DIR__ . '/../config/teams.php' => config_path('teams.php')
         ], 'config');
         $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations')
