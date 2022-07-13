@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\PermissionRegistrar;
 
-class TPermissionMiddleware
+class TeamPermissionMiddleware
 {
     public function handle(Request $request, Closure $next, $permission, $team = null, $guard = null)
     {
@@ -23,7 +23,7 @@ class TPermissionMiddleware
             : explode('|', $permission);
 
         foreach ($permissions as $permission) {
-            if ($authGuard->user()->hasTPermission($team, $permission)) {
+            if ($authGuard->user()->hasTeamPermission($team, $permission)) {
                 return $next($request);
             }
         }
