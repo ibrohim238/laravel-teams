@@ -4,9 +4,6 @@ namespace IAleroy\Teams\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Exceptions\UnauthorizedException;
-use Spatie\Permission\PermissionRegistrar;
 
 class TeamPermissionMiddleware
 {
