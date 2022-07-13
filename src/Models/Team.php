@@ -35,4 +35,9 @@ class Team extends Model implements TeamContract, HasMedia
     {
         return $this->id;
     }
+
+    public static function findById(int $teamId): TeamContract
+    {
+        return static::find($teamId);
+    }
 }

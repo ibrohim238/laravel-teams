@@ -7,13 +7,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait CanTeams
 {
+    public function getTeamClass()
+    {
+        return config('teams.models.team');
+    }
+
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(
-            config('team.models.team'),
-            config('team.models.team_user')
+            config('teams.models.team'),
+            config('teams.models.team_user')
         )
-            ->withPivot(config('team.column_names.role'))
+            ->withPivot(config('teams.column_names.role'))
             ->as('membership');
     }
 
@@ -58,8 +63,10 @@ trait CanTeams
 
     public function hasTeamRole(int|Team $team, string $role): bool
     {
+        $teamClass = $this->getTeamClass();
+
         if (is_int($team)) {
-            $team = Team::find($team);
+            $team = $teamClass::findById($team);
         }
 
         return $this->teamRole($team) === $role;
@@ -67,8 +74,10 @@ trait CanTeams
 
     public function hasTeamPermission(int|Team $team, string $permission): bool
     {
+        $teamClass = $this->getTeamClass();
+
         if (is_int($team)) {
-            $team = Team::find($team);
+            $team = $teamClass::findById($team);
         }
 
         return in_array($permission, $this->teamPermissions($team));
