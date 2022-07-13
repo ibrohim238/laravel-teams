@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 
-class TRoleOrTPermissionMiddleware
+class TeamRoleOrTeamPermissionMiddleware
 {
     public function handle(Request $request, Closure $next, $roleOrPermission, $team = null, $guard = null)
     {
@@ -20,7 +20,7 @@ class TRoleOrTPermissionMiddleware
             ? $roleOrPermission
             : explode('|', $roleOrPermission);
 
-        if (! $authGuard->user()->hasTRole($team, $rolesOrPermissions) && ! $authGuard->user()->hasPermission($team, $rolesOrPermissions)) {
+        if (! $authGuard->user()->hasTeamRole($team, $rolesOrPermissions) && ! $authGuard->user()->hasTeamPermission($team, $rolesOrPermissions)) {
             return abort(403);
         }
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\PermissionRegistrar;
 
-class TRoleMiddleware
+class TeamRoleMiddleware
 {
     public function handle(Request $request, Closure $next, $role, $team = null, $guard = null)
     {
@@ -22,7 +22,7 @@ class TRoleMiddleware
             ? $role
             : explode('|', $role);
 
-        if (! $authGuard->user()->hasTRole($team, $roles)) {
+        if (! $authGuard->user()->hasTeamRole($team, $roles)) {
             return abort(403);
         }
 
