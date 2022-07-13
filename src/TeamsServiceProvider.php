@@ -30,7 +30,7 @@ class TeamsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/team.php', 'team.php'
+            __DIR__ . '/../config/teams.php', 'teams.php'
         );
     }
 }
