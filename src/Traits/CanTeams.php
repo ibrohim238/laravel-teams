@@ -17,23 +17,14 @@ trait CanTeams
             ->as('membership');
     }
 
-    public function existTeam(Team $team): bool
-    {
-        return $this->teams()
-            ->where('team_id', $team->getId())
-            ->exists();
-    }
 
-    public function syncTRole(Team $team, ?string $role)
+    public function syncTRole(Team $team, ?string $role): static
     {
-        if ($this->existTeam($team)) {
-            if (! empty($role))
-                $this->updateTRole($team, $role);
-
-            $this->removeTRole($team);
-        }
+        $this->removeTRole($team);
 
         $this->assignTRole($team, $role);
+
+        return $this;
     }
 
     public function assignTRole(Team $team, string $role): static
