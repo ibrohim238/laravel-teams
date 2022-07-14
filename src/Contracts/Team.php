@@ -10,5 +10,5 @@ interface Team
 
     public function getId(): int;
 
-    public static function findById(int $teamId): self;
+    public static function findById(int $teamId): ?self;
 }

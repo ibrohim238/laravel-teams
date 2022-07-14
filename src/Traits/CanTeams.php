@@ -56,7 +56,7 @@ trait CanTeams
 
     public function teamPermissions(Team $team): array
     {
-        $teamRoles = config('team.roles');
+        $teamRoles = config('teams.roles');
 
         return $teamRoles::tryFrom($this->teamRole($team))?->permissions() ?? [];
     }
