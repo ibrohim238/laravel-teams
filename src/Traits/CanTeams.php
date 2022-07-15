@@ -48,7 +48,7 @@ trait CanTeams
 
     public function teamRole(Team $team): ?string
     {
-        return $team->users()
+        return $this->teams()
             ->firstWhere('team_id', $team->getKey())
             ?->membership
             ->role;
