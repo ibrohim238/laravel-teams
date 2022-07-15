@@ -31,9 +31,9 @@ class Team extends Model implements TeamContract, HasMedia
             ->as('membership');
     }
 
-    public function getId(): int
+    public function getKey(): mixed
     {
-        return $this->id;
+        return parent::getKey();
     }
 
     public static function findById(int $teamId): ?TeamContract

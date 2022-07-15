@@ -8,7 +8,7 @@ interface Team
 {
     public function users(): BelongsToMany;
 
-    public function getId(): int;
+    public function getKey(): mixed;
 
     public static function findById(int $teamId): ?self;
 }

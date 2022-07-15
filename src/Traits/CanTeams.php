@@ -34,14 +34,14 @@ trait CanTeams
 
     public function addToTeam(Team $team, string $role): static
     {
-        $this->teams()->attach($team->getId(), ['role' => $role]);
+        $this->teams()->attach($team->getKey(), ['role' => $role]);
 
         return $this;
     }
 
     public function removeToTeam(Team $team): static
     {
-        $this->teams()->detach($team->getId());
+        $this->teams()->detach($team->getKey());
 
         return $this;
     }
@@ -49,7 +49,7 @@ trait CanTeams
     public function teamRole(Team $team): ?string
     {
         return $team->users()
-            ->firstWhere('team_id', $team->getId())
+            ->firstWhere('team_id', $team->getKey())
             ?->membership
             ->role;
     }
