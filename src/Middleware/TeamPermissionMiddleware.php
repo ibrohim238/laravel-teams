@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TeamPermissionMiddleware
 {
-    public function handle(Request $request, Closure $next, $permission, $team = null, $guard = null)
+    public function handle(Request $request, Closure $next, $permission, $guard = null)
     {
         $authGuard = app('auth')->guard($guard);
 
@@ -15,6 +15,7 @@ class TeamPermissionMiddleware
             return abort(401);
         }
 
+        $team = $request->route('team') ?? $request->input('team_id');
         $permissions = is_array($permission)
             ? $permission
             : explode('|', $permission);

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TeamRoleMiddleware
 {
-    public function handle(Request $request, Closure $next, $role, $team = null, $guard = null)
+    public function handle(Request $request, Closure $next, $role, $guard = null)
     {
         $authGuard = Auth::guard($guard);
 
@@ -16,6 +16,7 @@ class TeamRoleMiddleware
             return abort(401);
         }
 
+        $team = $request->route('team') ?? $request->input('team_id');
         $roles = is_array($role)
             ? $role
             : explode('|', $role);

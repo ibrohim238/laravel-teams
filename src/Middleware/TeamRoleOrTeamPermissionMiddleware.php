@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class TeamRoleOrTeamPermissionMiddleware
 {
-    public function handle(Request $request, Closure $next, $roleOrPermission, $team = null, $guard = null)
+    public function handle(Request $request, Closure $next, $roleOrPermission, $guard = null)
     {
         $authGuard = Auth::guard($guard);
         if ($authGuard->guest()) {
             return abort(401);
         }
 
+        $team = $request->route('team') ?? $request->input('team_id');
         $rolesOrPermissions = is_array($roleOrPermission)
             ? $roleOrPermission
             : explode('|', $roleOrPermission);
