@@ -15,7 +15,7 @@ class TeamPermissionMiddleware
             return abort(401);
         }
 
-        $team = $request->route('team') ?? $request->input('team_id');
+        $team = $request->route('team', $request->input('team_id'));
         $permissions = is_array($permission)
             ? $permission
             : explode('|', $permission);

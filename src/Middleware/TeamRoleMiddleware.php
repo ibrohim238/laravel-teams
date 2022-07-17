@@ -16,7 +16,7 @@ class TeamRoleMiddleware
             return abort(401);
         }
 
-        $team = $request->route('team') ?? $request->input('team_id');
+        $team = $request->route('team', $request->input('team_id'));
         $roles = is_array($role)
             ? $role
             : explode('|', $role);
