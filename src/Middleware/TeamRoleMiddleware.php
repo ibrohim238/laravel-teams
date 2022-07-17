@@ -13,7 +13,7 @@ class TeamRoleMiddleware
         $authGuard = Auth::guard($guard);
 
         if ($authGuard->guest()) {
-            return abort(401);
+            return abort(403);
         }
 
         $team = $request->route('team', $request->input('team_id'));
