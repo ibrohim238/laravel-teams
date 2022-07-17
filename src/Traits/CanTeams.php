@@ -22,19 +22,16 @@ trait CanTeams
             ->as('membership');
     }
 
-
-    public function syncTeam(Team $team, ?string $role): static
+    public function addToTeam(Team $team, string $role): static
     {
-        $this->removeToTeam($team);
-
-        $this->addToTeam($team, $role);
+        $this->teams()->attach($team->getKey(), ['role' => $role]);
 
         return $this;
     }
 
-    public function addToTeam(Team $team, string $role): static
+    public function updateToTeam(Team $team, string $role): static
     {
-        $this->teams()->attach($team->getKey(), ['role' => $role]);
+        $this->teams()->updateExistingPivot($team->getKey(), ['role' => $role]);
 
         return $this;
     }
