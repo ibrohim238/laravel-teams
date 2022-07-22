@@ -14,12 +14,7 @@ class Team extends Model implements TeamContract, HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
-    protected
-        $fillable = [
-        'name',
-        'slug',
-        'description',
-    ];
+    protected $guarded = [];
 
     public function users(): BelongsToMany
     {
