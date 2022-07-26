@@ -43,7 +43,7 @@ trait CanTeams
         return $this;
     }
 
-    public function teamRole(Team $team): int|string
+    public function teamRole(Team $team): string|int|null
     {
         return $this->teams()
             ->firstWhere('team_id', $team->getKey())
